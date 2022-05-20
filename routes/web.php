@@ -33,12 +33,7 @@ function get_log($commands, $stdout, $stderr)
     $status = $stdout ? "OK" : "ERROR";
     $output = $stdout ? $stdout : $stderr;
 
-    return "
-    DATE&TIME: $date
-    COMMANDS: $commands
-    STATUS: $status
-    OUTPUT: $output
-    ";
+    return "$date, $commands, $status, $output";
 }
 
 
@@ -47,7 +42,7 @@ Route::get('/', function () {
     $stderr = '';
     custom_shell_exec('octave-cli --eval "m1 = 2500; m2 = 320;k1 = 80000; k2 = 500000;b1 = 350; b2 = 15020;pkg load control;A=[0 1 0 0;-(b1*b2)/(m1*m2) 0 ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1) -(b1/m1);b2/m2 0 -((b1/m1)+(b1/m2)+(b2/m2)) 1;k2/m2 0 -((k1/m1)+(k1/m2)+(k2/m2)) 0];B=[0 0;1/m1 (b1*b2)/(m1*m2);0 -(b2/m2);(1/m1)+(1/m2) -(k2/m2)];C=[0 0 1 0]; D=[0 0];Aa = [[A,transpose([0 0 0 0])];[C, 0]];Ba = [B;[0 0]];Ca = [C,0]; Da = D;K = [0 2.3e6 5e8 0 8e6];sys = ss(Aa-Ba(:,1)*K,Ba,Ca,Da);t = 0:0.01:5;r =0.1;initX1=0; initX1d=0;initX2=0; initX2d=0;[y,t,x]=lsim(sys*[0;1],r*ones(size(t)),t,[initX1;initX1d;initX2;initX2d;0]);save x3.txt y; save x1.txt x(:,1); save t.txt t; disp([t, x(:,1), y]);"', $stdout, $stderr);
     $log = get_log('octave-cli --eval "m1 = 2500; m2 = 320;k1 = 80000; k2 = 500000;b1 = 350; b2 = 15020;pkg load control;A=[0 1 0 0;-(b1*b2)/(m1*m2) 0 ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1) -(b1/m1);b2/m2 0 -((b1/m1)+(b1/m2)+(b2/m2)) 1;k2/m2 0 -((k1/m1)+(k1/m2)+(k2/m2)) 0];B=[0 0;1/m1 (b1*b2)/(m1*m2);0 -(b2/m2);(1/m1)+(1/m2) -(k2/m2)];C=[0 0 1 0]; D=[0 0];Aa = [[A,transpose([0 0 0 0])];[C, 0]];Ba = [B;[0 0]];Ca = [C,0]; Da = D;K = [0 2.3e6 5e8 0 8e6];sys = ss(Aa-Ba(:,1)*K,Ba,Ca,Da);t = 0:0.01:5;r =0.1;initX1=0; initX1d=0;initX2=0; initX2d=0;[y,t,x]=lsim(sys*[0;1],r*ones(size(t)),t,[initX1;initX1d;initX2;initX2d;0]);save x3.txt y; save x1.txt x(:,1); save t.txt t; disp([t, x(:,1), y]);");', $stdout, $stderr);
-    file_put_contents('logs.txt', $log . PHP_EOL, FILE_APPEND | LOCK_EX);
+    file_put_contents('logs.csv', $log . PHP_EOL, FILE_APPEND | LOCK_EX);
 
     return $stdout;
 });
