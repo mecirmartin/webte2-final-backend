@@ -20,7 +20,7 @@ class BasicAuth extends Middleware
     {
 
         if (strcmp($request->header('Authorization'), 'c5b90ab4-d970-48cf-93e3-3f14a023b064')) {
-            return response()->json('Unauthorized', 401);
+            return response()->json('Unauthorized', 200);
         }
 
         return $next($request);
