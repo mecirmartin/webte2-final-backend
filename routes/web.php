@@ -1,7 +1,9 @@
 <?php
 
+use App\Mail\Logs;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,8 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return "HELLO WORLD";
+});
+
+Route::get('/email', function () {
+    Mail::to('mecir.martin@gmail.com')->send(new Logs());
 });
