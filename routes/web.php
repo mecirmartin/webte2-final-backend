@@ -15,11 +15,3 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return "HELLO WORLD";
-});
-
-Route::get('/email', function () {
-    Mail::to('mecir.martin@gmail.com')->send(new Logs());
-});
