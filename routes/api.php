@@ -4,6 +4,7 @@ use App\Mail\Logs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MyUserController;
 
 
 header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
@@ -57,7 +58,7 @@ Route::post('/main-calculation', function (Request $request) {
     return $stdout != null ? $stdout : $stderr;
 });
 
-Route::post('/calculation', function (Request $request) {
+Route::POST('/calculation', function (Request $request) {
     $command = $request->input('command');
 
 
@@ -75,3 +76,14 @@ Route::post('/calculation', function (Request $request) {
 Route::get('/email', function () {
     Mail::to('mecir.martin@gmail.com')->send(new Logs());
 });
+
+
+Route::post('/user', [MyUserController::class,'saveUser']);
+
+Route::delete('/user/{id}', [MyUserController::class,'deleteUser']);
+
+Route::get('/user/{id}', [MyUserController::class,'getUser']);
+
+Route::get('/user', [MyUserController::class,'getAllUsers']);
+
+Route::put('/user/{id}', [MyUserController::class,'updateUser']);
