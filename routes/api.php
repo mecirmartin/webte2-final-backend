@@ -27,7 +27,7 @@ Route::post('/', function (Request $request) {
     return $result;
 });
 
-Route::get('/calculation', function (Request $request) {
+Route::post('/calculation', function (Request $request) {
     $command = $request->input('command');
 
     $result = shell_exec("octave-cli --eval \"$command\"");
