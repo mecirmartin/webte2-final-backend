@@ -1,7 +1,9 @@
 <?php
 
+use App\Mail\Logs;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +66,8 @@ Route::get('/calculation', function (Request $request) {
     file_put_contents('logs.csv', $log . PHP_EOL, FILE_APPEND | LOCK_EX);
 
     return $stdout != null ? $stdout : $stderr;
+});
+
+Route::get('/email', function () {
+    Mail::to('mecir.martin@gmail.com')->send(new Logs());
 });
