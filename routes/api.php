@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MyUserController;
+use Illuminate\Support\Facades\Cache;
 
 
 header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
@@ -87,3 +88,4 @@ Route::get('/user/{id}', [MyUserController::class,'getUser']);
 Route::get('/user', [MyUserController::class,'getAllUsers']);
 
 Route::put('/user/{id}', [MyUserController::class,'updateUser']);
+
