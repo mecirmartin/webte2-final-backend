@@ -1,3 +1,12 @@
+# Setup and config
+This app is laravel sail app, you can spin up local development with `./vendor/bin/sail up`
+Authentication token for API is 'c5b90ab4-d970-48cf-93e3-3f14a023b064'
+
+Email where logs from application are sent is 'mecir.martin@gmail.com', this could be overridden in
+`routes/api.php` on line 78
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">

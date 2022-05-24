@@ -1,9 +1,7 @@
 <?php
 
-use App\Mail\Logs;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +13,8 @@ use Illuminate\Support\Facades\Mail;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', function () {
+    // dd(Storage::get("/public/reactIndex.html"));
+    return Storage::get("/public/reactIndex.html");
+});
